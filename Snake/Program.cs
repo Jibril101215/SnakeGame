@@ -59,12 +59,16 @@ namespace Snake
                 //  GAME OVER 
                 if (snake.SnakeElements.Contains(snakeNewHead) || ObstacleList.Position.Contains(snakeNewHead))
                 {
-                    Console.SetCursorPosition(0, 0);
+                    string s1 = "Game over!";
+                    string s2 = "Your points are: {0}";
+                    Console.SetCursorPosition((Console.WindowWidth - s1.Length) / 2, (Console.WindowHeight -2) /2);
                     Console.ForegroundColor = ConsoleColor.Red;
+                    
                     Console.WriteLine("Game over!");
                     int userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
                     //if (userPoints < 0) userPoints = 0;
                     userPoints = Math.Max(userPoints, 0);
+                    Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
                     Console.WriteLine("Your points are: {0}", userPoints);
                     return;
                 }
