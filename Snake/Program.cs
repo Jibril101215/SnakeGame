@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Threading;
-
+using System.IO;
 
 namespace Snake
 {
@@ -57,10 +57,31 @@ namespace Snake
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Game over!");
-                    int userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
+                    int userPoints = (snake.CountElements() - 4) * 100 - negativePoints;
                     //if (userPoints < 0) userPoints = 0;
                     userPoints = Math.Max(userPoints, 0);
                     Console.WriteLine("Your points are: {0}", userPoints);
+                    
+                    // STORES PLAYER'S DATA IN "UserData.txt"
+                    try
+                    {
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "userData.txt");
+                        StreamWriter user;
+                        if (!File.Exists(path))
+                        {
+                            user = File.CreateText(path);
+                        } else
+                        {
+                            user = File.AppendText(path);
+                        }
+                        user.WriteLine("SCORE: " + userPoints + "\tDATE/TIME: " + DateTime.Now); // Player score and current datetime
+                        user.Close();
+                    }
+                    catch (Exception err)
+                    {
+                        Console.WriteLine("Exception: " + err.Message);
+                    }
+
                     return;
                 }
 
