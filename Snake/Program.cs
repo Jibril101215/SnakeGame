@@ -64,12 +64,12 @@ namespace Snake
                     Console.SetCursorPosition((Console.WindowWidth - s1.Length) / 2, (Console.WindowHeight -2) /2);
                     Console.ForegroundColor = ConsoleColor.Red;
                     
-                    Console.WriteLine("Game over!");
+                    Console.WriteLine(s1);
                     int userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
                     //if (userPoints < 0) userPoints = 0;
                     userPoints = Math.Max(userPoints, 0);
                     Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
-                    Console.WriteLine("Your points are: {0}", userPoints);
+                    Console.WriteLine(s2, userPoints);
                     return;
                 }
 
