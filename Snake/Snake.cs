@@ -10,11 +10,6 @@ namespace Snake
     public class Snake : AnimatedObjects
     {
         /// <summary>
-        /// Snake size or length
-        /// </summary>
-        private int size;
-
-        /// <summary>
         /// A list containing elements of the snake
         /// </summary>
         private Queue<Position> snakeElements;

@@ -9,7 +9,7 @@ namespace Snake
     public class Food : AnimatedObjects 
     {
         private int lastFoodTime; // last time food was eaten
-        private const int foodDissapearTime = 8000; // food time
+        private const int foodDissapearTime = 10000; // food relocation time
 
         public Food()
         {
