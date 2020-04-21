@@ -16,6 +16,7 @@ namespace Snake
             Random randomNumbersGenerator = new Random(); // RANDOM NUMBER
             Console.BufferHeight = Console.WindowHeight;
 
+            
 
             // INITIALISE & DISPLAY 5 OBSTACLES
             // added to ObstacleList list
@@ -44,11 +45,11 @@ namespace Snake
             food.UpdateFoodPosition(snake, ObstacleList, randomNumbersGenerator);
             food.Display();
 
-
+            int userPoints = 0;
             // PROGAM STARTS HERE
             while (true)
             {
-                negativePoints++;
+                //negativePoints++;
 
                 // Update Snake's current direction when a key is pressed
                 if (Console.KeyAvailable) direction.ChangeDirection();
@@ -65,13 +66,16 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.Red;
                     
                     Console.WriteLine(s1);
-                    int userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
+                    
                     //if (userPoints < 0) userPoints = 0;
+                    
                     userPoints = Math.Max(userPoints, 0);
                     Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
                     Console.WriteLine(s2, userPoints);
                     return;
                 }
+
+
 
                 snake.Display();
 
@@ -84,6 +88,7 @@ namespace Snake
                 if (direction.Arrow == Arrow.up) Console.Write("^");
                 if (direction.Arrow== Arrow.down) Console.Write("v");
 
+                
                 // WHEN FOOD IS EATEN
                 if (snakeNewHead == food.Pos)
                 {
@@ -115,7 +120,9 @@ namespace Snake
                 food.Display();
                 snake.SleepTime -= 0.01; // Increase Snake's speed
                 Thread.Sleep((int)snake.SleepTime); // Update Program's speed
+                userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
             }
+            
         }
     }
 }

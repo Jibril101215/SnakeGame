@@ -8,7 +8,7 @@ C:\Users\Asus\Documents\Git\SnakeGame\Snake\obj\Debug\Snake.pdb
 C:\Users\Joanna Wong\Documents\SnakeGame\Snake\bin\Debug\Snake.exe.config
 C:\Users\Joanna Wong\Documents\SnakeGame\Snake\bin\Debug\Snake.exe
 C:\Users\Joanna Wong\Documents\SnakeGame\Snake\bin\Debug\Snake.pdb
-C:\Users\Joanna Wong\Documents\SnakeGame\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
 C:\Users\Joanna Wong\Documents\SnakeGame\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
 C:\Users\Joanna Wong\Documents\SnakeGame\Snake\obj\Debug\Snake.exe
 C:\Users\Joanna Wong\Documents\SnakeGame\Snake\obj\Debug\Snake.pdb
+C:\Users\Joanna Wong\Documents\SnakeGame\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
