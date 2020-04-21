@@ -44,11 +44,11 @@ namespace Snake
             food.UpdateFoodPosition(snake, ObstacleList, randomNumbersGenerator);
             food.Display();
 
-
+            int userPoints = 0;
             // PROGAM STARTS HERE
-            while (true)
+            while (userPoints<500)
             {
-                negativePoints++;
+                //negativePoints++;
 
                 // Update Snake's current direction when a key is pressed
                 if (Console.KeyAvailable) direction.ChangeDirection();
@@ -65,7 +65,7 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.Red;
                     
                     Console.WriteLine(s1);
-                    int userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
+                    
                     //if (userPoints < 0) userPoints = 0;
                     userPoints = Math.Max(userPoints, 0);
                     Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
@@ -115,7 +115,12 @@ namespace Snake
                 food.Display();
                 snake.SleepTime -= 0.01; // Increase Snake's speed
                 Thread.Sleep((int)snake.SleepTime); // Update Program's speed
+                userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
             }
+            string s3 = "You won! Your score is {0} \n";
+            Console.SetCursorPosition((Console.WindowWidth - s3.Length) / 2, 0);
+
+            Console.Write(s3, userPoints);
         }
     }
 }
