@@ -30,11 +30,6 @@ namespace Snake
 
             // INITIALISE SNAKE ELEMENTS
             Snake snake = new Snake();
-            for (int i = 0; i <= 5; i++)
-            {
-                snake.AddElement(new Position(0, i));
-                snake.Display();
-            }
 
             // INITIALISE SNAKE DIRECTION
             Directions direction = new Directions(Arrow.right);
