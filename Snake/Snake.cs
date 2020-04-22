@@ -9,11 +9,11 @@ namespace Snake
 {
     public class Snake : AnimatedObjects
     {
-		/// <summary>
-		/// Snake size or length
-		/// </summary>
-		private int size;
-		
+        /// <summary>
+        /// Snake size or length
+        /// </summary>
+        private int size;
+
         /// <summary>
         /// A list containing elements of the snake
         /// </summary>
@@ -32,13 +32,7 @@ namespace Snake
             sleepTime = 100;
             symbol = "*";
             color = ConsoleColor.DarkGray;
-			size = 4;
             snakeElements = new Queue<Position>();
-			for (int i = 0; i < size; i++){
-                snakeElements.Enqueue(new Position(0, i));
-				Display();
-			}
-            
         }
 
         /// <summary>
