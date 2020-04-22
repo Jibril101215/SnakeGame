@@ -54,7 +54,7 @@ namespace Snake
             food.UpdateFoodPosition(snake, ObstacleList, randomNumbersGenerator);
             food.Display();
 
-<<<<<<< HEAD
+
             // INITIALISE USER POINTS
             int userPoints = 0;
 
@@ -63,16 +63,16 @@ namespace Snake
             SoundPlayer sound = new SoundPlayer(path);
             sound.PlayLooping();
 
-=======
-            int userPoints = 0;
->>>>>>> reposition-game-over
+
+           
+
             // PROGAM STARTS HERE
             while (userPoints<500)
             {
-<<<<<<< HEAD
+
                 
-=======
->>>>>>> reposition-game-over
+
+
                 //negativePoints++;
 
                 // Update Snake's current direction when a key is pressed
@@ -156,14 +156,13 @@ namespace Snake
                 userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
             }
             
-<<<<<<< HEAD
+
             
             string s3 = "You won! Your score is {0} \n";
             Console.SetCursorPosition((Console.WindowWidth - s3.Length) / 2, 0);
 
             Console.Write(s3, userPoints);
-=======
->>>>>>> reposition-game-over
+
         }
     }
 }
