@@ -25,6 +25,7 @@ namespace Snake
             Random randomNumbersGenerator = new Random(); // RANDOM NUMBER
             Console.BufferHeight = Console.WindowHeight;
 
+            
 
             // INITIALISE & DISPLAY 5 OBSTACLES
             // added to ObstacleList list
@@ -53,6 +54,7 @@ namespace Snake
             food.UpdateFoodPosition(snake, ObstacleList, randomNumbersGenerator);
             food.Display();
 
+<<<<<<< HEAD
             // INITIALISE USER POINTS
             int userPoints = 0;
 
@@ -61,10 +63,16 @@ namespace Snake
             SoundPlayer sound = new SoundPlayer(path);
             sound.PlayLooping();
 
+=======
+            int userPoints = 0;
+>>>>>>> reposition-game-over
             // PROGAM STARTS HERE
             while (userPoints<500)
             {
+<<<<<<< HEAD
                 
+=======
+>>>>>>> reposition-game-over
                 //negativePoints++;
 
                 // Update Snake's current direction when a key is pressed
@@ -88,12 +96,15 @@ namespace Snake
                     Console.WriteLine(s1);
                     
                     //if (userPoints < 0) userPoints = 0;
+                    
                     userPoints = Math.Max(userPoints, 0);
                     Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
                     Console.WriteLine(s2, userPoints);
                     Console.ReadLine();
                     return;
                 }
+
+
 
                 snake.Display();
 
@@ -106,6 +117,7 @@ namespace Snake
                 if (direction.Arrow == Arrow.up) Console.Write("^");
                 if (direction.Arrow== Arrow.down) Console.Write("v");
 
+                
                 // WHEN FOOD IS EATEN
                 if (snakeNewHead == food.Pos)
                 {
@@ -144,11 +156,14 @@ namespace Snake
                 userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
             }
             
+<<<<<<< HEAD
             
             string s3 = "You won! Your score is {0} \n";
             Console.SetCursorPosition((Console.WindowWidth - s3.Length) / 2, 0);
 
             Console.Write(s3, userPoints);
+=======
+>>>>>>> reposition-game-over
         }
     }
 }
