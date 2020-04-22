@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Threading;
-using System.IO;
+
 
 namespace Snake
 {
@@ -13,6 +13,7 @@ namespace Snake
         static void Main(string[] args)
         {
             int negativePoints = 0; // POINTS
+            int userPoints = 0;
             Random randomNumbersGenerator = new Random(); // RANDOM NUMBER
             Console.BufferHeight = Console.WindowHeight;
 
@@ -20,11 +21,10 @@ namespace Snake
             // INITIALISE & DISPLAY 5 OBSTACLES
             // added to ObstacleList list
             ObstacleList ObstacleList = new ObstacleList();
-            ObstacleList.AddObstacle(new Obstacle(new Position(12, 12)));
-            ObstacleList.AddObstacle(new Obstacle(new Position(14, 20)));
-            ObstacleList.AddObstacle(new Obstacle(new Position(7, 7)));
-            ObstacleList.AddObstacle(new Obstacle(new Position(19, 19)));
-            ObstacleList.AddObstacle(new Obstacle(new Position(6, 9)));
+            for(int i = 0; i < 5; i++) 
+            {
+                ObstacleList.AddObstacle(new Obstacle(new Position(randomNumbersGenerator.Next(5, Console.WindowHeight), randomNumbersGenerator.Next(5, Console.WindowWidth))));
+            }
             foreach (Obstacle ob in ObstacleList.Obstacles) { ob.Display(); } // Dislay Obstacles
 
 
@@ -43,7 +43,7 @@ namespace Snake
             // PROGAM STARTS HERE
             while (true)
             {
-                negativePoints++;
+                //negativePoints++;
 
                 // Update Snake's current direction when a key is pressed
                 if (Console.KeyAvailable) direction.ChangeDirection();
@@ -56,13 +56,16 @@ namespace Snake
                 {
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Red;
+                    //userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
                     Console.WriteLine("Game over!");
-                    int userPoints = (snake.CountElements() - 4) * 100 - negativePoints;
                     //if (userPoints < 0) userPoints = 0;
                     userPoints = Math.Max(userPoints, 0);
                     Console.WriteLine("Your points are: {0}", userPoints);
+                    Console.WriteLine("Press Enter to exit game");// new update: pause the game and end the game by pressing Enter.
+                    Console.ReadLine();
                     
-                    // STORES PLAYER'S DATA IN "UserData.txt"
+					
+					// STORES PLAYER'S DATA IN "UserData.txt"
                     try
                     {
                         string path = Path.Combine(Directory.GetCurrentDirectory(), "userData.txt");
@@ -81,8 +84,8 @@ namespace Snake
                     {
                         Console.WriteLine("Exception: " + err.Message);
                     }
-
-                    return;
+					
+					return;
                 }
 
                 snake.Display();
@@ -101,10 +104,12 @@ namespace Snake
                 {
                     // Reposition Food after eaten
                     food.UpdateFoodPosition(snake, ObstacleList, randomNumbersGenerator);
-                    
+                    userPoints += 100;
+                   
                     // Randomly place new obstacle
                     ObstacleList.PositionNewObstacle(snake, food, randomNumbersGenerator);
                 }
+
 
                 // WHEN FOOD IS NOT EATEN
                 else
@@ -117,16 +122,23 @@ namespace Snake
                     // REPOSITION FOOD IF NOT EATEN
                     if (Environment.TickCount - food.LastFoodTime >= food.DisappearTime)
                     {
-                        negativePoints = negativePoints + 50; 
+                        //negativePoints = 50;
                         Console.SetCursorPosition(food.Col, food.Row);
                         Console.Write(" ");
                         food.UpdateFoodPosition(snake, ObstacleList, randomNumbersGenerator);
+                        userPoints -= 50;
+
                     }
                 }
 
                 food.Display();
                 snake.SleepTime -= 0.01; // Increase Snake's speed
-                Thread.Sleep((int)snake.SleepTime); // Update Program's speed
+                Thread.Sleep((int)snake.SleepTime); // Update Program's speed 
+                userPoints = Math.Max(userPoints, 0);
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("   ");
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("Your points are: {0}", userPoints);
             }
         }
     }
