@@ -93,31 +93,6 @@ namespace Snake
                     
                   
                     userPoints = Math.Max(userPoints, 0);
-
-                    
-                    
-					
-					// STORES PLAYER'S DATA IN "UserData.txt"
-                    try
-                    {
-                        string path1 = Path.Combine(Directory.GetCurrentDirectory(), "userData.txt");
-                        StreamWriter user;
-                        if (!File.Exists(path1))
-                        {
-                            user = File.CreateText(path1);
-                        } else
-                        {
-                            user = File.AppendText(path1);
-                        }
-                        user.WriteLine("SCORE: " + userPoints + "\tDATE/TIME: " + DateTime.Now); // Player score and current datetime
-                        user.Close();
-                    }
-                    catch (Exception err)
-                    {
-                        Console.WriteLine("Exception: " + err.Message);
-                    }
-					
-
                     Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
                     Console.WriteLine(s2, userPoints);
                     Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight+2) / 2));
@@ -189,6 +164,26 @@ namespace Snake
 
             }
 
+            // STORES PLAYER'S DATA IN "UserData.txt"
+            try
+            {
+                string path1 = Path.Combine(Directory.GetCurrentDirectory(), "userData.txt");
+                StreamWriter user;
+                if (!File.Exists(path1))
+                {
+                    user = File.CreateText(path1);
+                }
+                else
+                {
+                    user = File.AppendText(path1);
+                }
+                user.WriteLine("SCORE: " + userPoints + "\tDATE/TIME: " + DateTime.Now); // Player score and current datetime
+                user.Close();
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine("Exception: " + err.Message);
+            }
 
             string path3 = Path.Combine(Directory.GetCurrentDirectory(), "yay.wav");
             SoundPlayer sound3 = new SoundPlayer(path3);
