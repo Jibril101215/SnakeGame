@@ -12,8 +12,8 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            int negativePoints = 0; // POINTS
-            int userPoints = 0;
+            int userPoints = 0; // POINTS
+
             Random randomNumbersGenerator = new Random(); // RANDOM NUMBER
             Console.BufferHeight = Console.WindowHeight;
 
@@ -68,7 +68,29 @@ namespace Snake
                     Console.WriteLine("Your points are: {0}", userPoints);
                     Console.WriteLine("Press Enter to exit game");// new update: pause the game and end the game by pressing Enter.
                     Console.ReadLine();
-                    return;
+                    
+					
+					// STORES PLAYER'S DATA IN "UserData.txt"
+                    try
+                    {
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "userData.txt");
+                        StreamWriter user;
+                        if (!File.Exists(path))
+                        {
+                            user = File.CreateText(path);
+                        } else
+                        {
+                            user = File.AppendText(path);
+                        }
+                        user.WriteLine("SCORE: " + userPoints + "\tDATE/TIME: " + DateTime.Now); // Player score and current datetime
+                        user.Close();
+                    }
+                    catch (Exception err)
+                    {
+                        Console.WriteLine("Exception: " + err.Message);
+                    }
+					
+					return;
                 }
 
                 snake.Display();
@@ -119,7 +141,9 @@ namespace Snake
                 Thread.Sleep((int)snake.SleepTime); // Update Program's speed 
                 userPoints = Math.Max(userPoints, 0);
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("   ");
+
+                Console.WriteLine("Your points are:    ");
+
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine("Your points are: {0}", userPoints);
             }
