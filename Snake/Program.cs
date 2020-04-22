@@ -155,14 +155,18 @@ namespace Snake
                 Thread.Sleep((int)snake.SleepTime); // Update Program's speed
                 userPoints = (snake.CountElements() - 6) * 100 - negativePoints;
             }
-            
 
-            
+
+            string path3 = Path.Combine(Directory.GetCurrentDirectory(), "yay.wav");
+            SoundPlayer sound3 = new SoundPlayer(path3);
+            sound3.Play();
+
             string s3 = "You won! Your score is {0} \n";
             Console.SetCursorPosition((Console.WindowWidth - s3.Length) / 2, 0);
 
             Console.Write(s3, userPoints);
-
+            Console.ReadLine();
+            
         }
     }
 }
