@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Threading;
-
+using System.IO;
 
 namespace Snake
 {
@@ -12,8 +12,7 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            int negativePoints = 0; // POINTS
-            int userPoints = 0;
+            int userPoints = 0; // POINTS
             Random randomNumbersGenerator = new Random(); // RANDOM NUMBER
             Console.BufferHeight = Console.WindowHeight;
 
@@ -136,7 +135,7 @@ namespace Snake
                 Thread.Sleep((int)snake.SleepTime); // Update Program's speed 
                 userPoints = Math.Max(userPoints, 0);
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine("   ");
+                Console.WriteLine("Your points are:    ");
                 Console.SetCursorPosition(0, 0);
                 Console.WriteLine("Your points are: {0}", userPoints);
             }
