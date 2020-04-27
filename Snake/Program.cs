@@ -6,28 +6,29 @@ using System.Collections;
 using System.Threading;
 using System.Media;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
+
+
+
+
+
 
 namespace Snake
 {
+
+
     class Program
     {
         
         static void Main(string[] args)
         {
+
+            
+
+
             Random randomNumbersGenerator = new Random(); // RANDOM NUMBER
             Console.BufferHeight = Console.WindowHeight;
 
-            // USER MANAGEMENT SYSTEM
-            Console.WriteLine("Enter username: ");
-            User currUser = new User(Console.ReadLine());
-            Console.Clear();
-
-            // BEFORE INSTANTIATING GAME OBJECTS
-            Console.SetCursorPosition(0, 0);
-            Console.WriteLine("Hello, "+currUser.name+"! Press ENTER to start");
-            Console.ReadLine();
-            Console.Clear();
+            
 
             // INITIALISE & DISPLAY 5 OBSTACLES
             // added to ObstacleList list
@@ -54,17 +55,19 @@ namespace Snake
             // INITIALISE USER POINTS
             int userPoints = 0;
 
-            // INITIALISE SOUNDS
+            //INITIALISE SOUNDS
             string path = Path.Combine(Directory.GetCurrentDirectory(), "repeat.wav");
             SoundPlayer sound = new SoundPlayer(path);
             sound.PlayLooping();
 
 
-
+           
 
             // PROGAM STARTS HERE
             while (userPoints<500)
             {
+
+
                 // Update Snake's current direction when a key is pressed
                 if (Console.KeyAvailable) direction.ChangeDirection();
                 
@@ -73,7 +76,31 @@ namespace Snake
                 
                 //  GAME OVER 
                 if (snake.SnakeElements.Contains(snakeNewHead) || ObstacleList.Position.Contains(snakeNewHead))
-                    break;
+                {
+                   
+                    string s1 = "Game over!";
+                    string s2 = "Your points are: {0}";
+                    Console.SetCursorPosition((Console.WindowWidth - s1.Length) / 2, (Console.WindowHeight -2) /2);
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    
+
+                    string path2 = Path.Combine(Directory.GetCurrentDirectory(), "aww.wav");
+                    SoundPlayer sound2 = new SoundPlayer(path2);
+                    sound2.Play();
+                    
+                    Console.WriteLine(s1);
+                    
+                  
+                    userPoints = Math.Max(userPoints, 0);
+                    Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
+                    Console.WriteLine(s2, userPoints);
+                    Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight+2) / 2));
+                    Console.WriteLine("Press Enter to exit game");
+                    Console.ReadLine();
+                    return;
+
+                }
 
 
 
@@ -138,48 +165,36 @@ namespace Snake
             }
 
             // STORES PLAYER'S DATA IN "UserData.txt"
-            currUser.score = userPoints;
-            Scoreboard scoreboard = new Scoreboard();
-            scoreboard.updateScoreboard(currUser);
-            scoreboard.updateFile();
-
-
-            if (userPoints >= 500)
+            try
             {
-                string path3 = Path.Combine(Directory.GetCurrentDirectory(), "yay.wav");
-                SoundPlayer sound3 = new SoundPlayer(path3);
-                sound3.Play();
-
-                string s3 = "You won, "+currUser.name+"! Your score is {0} \n";
-                Console.SetCursorPosition((Console.WindowWidth - s3.Length) / 2, 0);
-
-                Console.Write(s3, userPoints);
-                Console.ReadLine();
-            } else
-            {
-                string s1 = "Game over, "+currUser.name+"!";
-                string s2 = "Your points are: {0}";
-                Console.SetCursorPosition((Console.WindowWidth - s1.Length) / 2, (Console.WindowHeight - 2) / 2);
-                Console.ForegroundColor = ConsoleColor.Red;
-
-
-
-                string path2 = Path.Combine(Directory.GetCurrentDirectory(), "aww.wav");
-                SoundPlayer sound2 = new SoundPlayer(path2);
-                sound2.Play();
-
-                Console.WriteLine(s1);
-
-
-                userPoints = Math.Max(userPoints, 0);
-                Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight) / 2));
-                Console.WriteLine(s2, userPoints);
-                Console.SetCursorPosition((Console.WindowWidth - s2.Length) / 2, ((Console.WindowHeight + 2) / 2));
-                Console.WriteLine("Press Enter to exit game");
-                Console.ReadLine();
+                string path1 = Path.Combine(Directory.GetCurrentDirectory(), "userData.txt");
+                StreamWriter user;
+                if (!File.Exists(path1))
+                {
+                    user = File.CreateText(path1);
+                }
+                else
+                {
+                    user = File.AppendText(path1);
+                }
+                user.WriteLine("SCORE: " + userPoints + "\tDATE/TIME: " + DateTime.Now); // Player score and current datetime
+                user.Close();
             }
-        }
+            catch (Exception err)
+            {
+                Console.WriteLine("Exception: " + err.Message);
+            }
 
-       
+            string path3 = Path.Combine(Directory.GetCurrentDirectory(), "yay.wav");
+            SoundPlayer sound3 = new SoundPlayer(path3);
+            sound3.Play();
+
+            string s3 = "You won! Your score is {0} \n";
+            Console.SetCursorPosition((Console.WindowWidth - s3.Length) / 2, 0);
+
+            Console.Write(s3, userPoints);
+            Console.ReadLine();
+            
+        }
     }
 }
